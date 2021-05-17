@@ -3,8 +3,7 @@
 
 
 
-from mining import mine
-from transaction import transac
+
 import six_fo
 import hashlib
 import time
