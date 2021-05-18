@@ -257,17 +257,17 @@ def mine_result():
 
 if __name__ == "__main__":
     help = {0: "send", 1: "receive", 2: "amount", 3: "time", 4: "verify", 5: "last_key", 6: "key"}
-with open("blockchain.txt", "r") as f:
-    content = [i[:-2] for i in f.readlines()]
-    for i in content:
-        out = {}
-        curr = i.split(" ")
-        for j in range(len(curr)):
-            if j == 0 or j == 1 or j == 4:
-                out[help[j]] = curr[j]
-            else:
-                out[help[j]] = num(curr[j])
-        blockchain.append(out)
+    with open("blockchain.txt", "r") as f:
+        content = [i[:-2] for i in f.readlines()]
+        for i in content:
+            out = {}
+            curr = i.split(" ")
+            for j in range(len(curr)):
+                if j == 0 or j == 1 or j == 4:
+                    out[help[j]] = curr[j]
+                else:
+                    out[help[j]] = num(curr[j])
+            blockchain.append(out)
 
     with open("mining_queue.txt", "r") as f:
         content = [i[:-2] for i in f.readlines()]
