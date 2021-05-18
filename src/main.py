@@ -286,3 +286,4 @@ if __name__ == "__main__":
     if len(mining_queue) == 0:
         mining_queue.append({"send": "SYSTEM", "receive": "SYSTEM", "amount": 0, "time": 1587374420, "verify": "0" * 64, "last_key": None, "key": None})
     app.run(debug=True)
+    close = input("Close? ")
