@@ -238,7 +238,7 @@ def mining():
             return redirect(url_for("success"))
     elif len(mining_queue) > 0:
         bhash = hashlib.sha256((mining_queue[0]["send"] + mining_queue[0]["receive"] + str(mining_queue[0]["amount"]) + str(mining_queue[0]["time"]) + mining_queue[0]["verify"]).encode("UTF-8")).hexdigest()
-        diff = len(blockchain) // 1000 + 4
+        diff = len(blockchain) // 1000 + 8
         with open("dist_for_mine.txt", "a") as f:
             f.write(str(diff) + " " + bhash + " " +  str(mining_queue[0]) + " \n")
         return render_template("mining.html", bh=bhash, dif=diff)
