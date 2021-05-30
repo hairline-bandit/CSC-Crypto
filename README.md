@@ -10,3 +10,5 @@ If you are cloning make sure to move the files from "text_databases" to "src" so
 It is now hosted somewhere
 
 Go to https://csccrypto.pythonanywhere.com
+
+Note that the app is set up for pythonanywhere.com hosting
