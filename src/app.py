@@ -23,13 +23,13 @@ def make_file():
     global mining_queue
     global users
     global usersn
-    with open("/home/csccrypto/mysite/text_stuff/blockchain.txt", "w") as f:
+    with open("blockchain.txt", "w") as f:
         for i in blockchain:
             if i != {"send": "SYSTEM", "receive": "SYSTEM", "amount": 0, "time": 1587374420, "verify": "0" * 64, "last_key": 0, "key": 0}:
                 for j in i.values():
                     f.write(str(j) + " ")
                 f.write("\n")
-    with open("/home/csccrypto/mysite/text_stuff/mining_queue.txt", "w") as f:
+    with open("mining_queue.txt", "w") as f:
         for i in mining_queue:
             for j in i.values():
                 f.write(str(j) + " ")
@@ -39,7 +39,7 @@ def make_file():
     mining_queue = []
     blockchain = []
     help = {0: "send", 1: "receive", 2: "amount", 3: "time", 4: "verify", 5: "last_key", 6: "key"}
-    with open("/home/csccrypto/mysite/text_stuff/blockchain.txt", "r") as f:
+    with open("blockchain.txt", "r") as f:
         content = [i[:-2] for i in f.readlines()]
         for i in content:
             out = {}
@@ -51,7 +51,7 @@ def make_file():
                     out[help[j]] = num(curr[j])
             blockchain.append(out)
 
-    with open("/home/csccrypto/mysite/text_stuff/mining_queue.txt", "r") as f:
+    with open("mining_queue.txt", "r") as f:
         content = [i[:-2] for i in f.readlines()]
         for i in content:
             out = {}
@@ -65,7 +65,7 @@ def make_file():
                     out[help[j]] = None
             mining_queue.append(out)
 
-    with open("/home/csccrypto/mysite/text_stuff/users.txt", "r") as f:
+    with open("users.txt", "r") as f:
         content = [i[:-1] for i in f.readlines()]
         for i in content:
             usersn.append(i.split(" ")[0])
@@ -78,7 +78,7 @@ def make_file():
 
 
 def is_dist_hash(hash, difficulty):
-    with open("/home/csccrypto/mysite/text_stuff/dist_for_mine.txt", "r") as f:
+    with open("dist_for_mine.txt", "r") as f:
         content = [i[:-2] for i in f.readlines()]
         for i in content:
             if i.split(" ")[1] == hash and i.split(" ")[0] == str(difficulty):
@@ -86,7 +86,7 @@ def is_dist_hash(hash, difficulty):
     return False
 
 def is_compl_hash(hash):
-    with open("/home/csccrypto/mysite/text_stuff/completed_mine.txt", "r") as f:
+    with open("completed_mine.txt", "r") as f:
         content = [i[:-2] for i in f.readlines()]
         for i in content:
             if i == hash:
@@ -94,7 +94,7 @@ def is_compl_hash(hash):
     return False
 
 def get_dist_hash(hash):
-    with open("/home/csccrypto/mysite/text_stuff/dist_for_mine.txt", "r") as f:
+    with open("dist_for_mine.txt", "r") as f:
         content = [i[:-2] for i in f.readlines()]
         for i in content:
             if i.split(" ")[1] == hash:
@@ -104,21 +104,21 @@ def get_dist_hash(hash):
 def get_balance(user):
     if get_pass(user) != None:
         balance = float(0)
-        with open("/home/csccrypto/mysite/text_stuff/blockchain.txt", "r") as f:
+        with open("blockchain.txt", "r") as f:
             content = [i[:-2] for i in f.readlines()]
             for i in content:
                 if i.split(" ")[0] == user:
                     balance -= float(i.split(" ")[2])
                 elif i.split(" ")[1] == user:
                     balance += float(i.split(" ")[2])
-        with open("/home/csccrypto/mysite/text_stuff/mining_queue.txt", "r") as f:
+        with open("mining_queue.txt", "r") as f:
             content = [i[:-2] for i in f.readlines()]
             for i in content:
                 if len(i.split(" ")) > 0 and i.split(" ")[0] == user:
                     balance -= float(i.split(" ")[2])
                 elif len(i.split(" ")) > 1 and i.split(" ")[1] == user:
                     balance += float(i.split(" ")[2])
-        with open("/home/csccrypto/mysite/text_stuff/mine_reward.txt", "r") as f:
+        with open("mine_reward.txt", "r") as f:
             content = [i[:-2] for i in f.readlines()]
             for i in content:
                 if i.split(" ")[0] == user:
@@ -134,7 +134,7 @@ asd = None
 asd2 = None
 asd3 = None
 def get_pass(user):
-    with open("/home/csccrypto/mysite/text_stuff/users.txt", "r") as f:
+    with open("users.txt", "r") as f:
         content = f.readlines()
         for i in content:
             if i.split(" ")[0] == user:
@@ -158,7 +158,7 @@ def createacc():
         if user.replace(" ", "") not in usersn and user.replace(" ", "") != "" and " " not in user and "\"" not in user and user != "SYSTEM":
             usersn.append(user.replace(" ", ""))
             users.append((user.replace(" ", ""), passw))
-            f = open("/home/csccrypto/mysite/text_stuff/users.txt", "a")
+            f = open("users.txt", "a")
             for i in enumerate(users):
                 f.write(i[1][0] + " " + "\"" + i[1][1] + "\"" + "\n")
             f.close()
@@ -266,14 +266,14 @@ def mining():
             dic_no_key["key"] = None
             dic_no_key["last_key"] = None
             mining_queue.remove(dic_no_key)
-            with open("/home/csccrypto/mysite/text_stuff/completed_mine.txt", "a") as f:
+            with open("completed_mine.txt", "a") as f:
                 f.write(str(block_hash) + "\n")
-            with open("/home/csccrypto/mysite/text_stuff/mine_reward.txt", "a") as f:
+            with open("mine_reward.txt", "a") as f:
                 f.write(user + " " + "10" + " \n")
             asd3 = "full"
             return redirect(url_for("success"))
         elif six_fo.encrypt(block_hash, format(int(key_num), "064x"))[:int(difficulty)] == "0" * int(difficulty) and is_dist_hash(block_hash, int(difficulty)):
-            with open("/home/csccrypto/mysite/text_stuff/mine_reward.txt", "a") as f:
+            with open("mine_reward.txt", "a") as f:
                 f.write(user + " " + "0.25" + " \n")
             asd3 = "semi"
             return redirect(url_for("success"))
@@ -283,7 +283,7 @@ def mining():
     elif len(mining_queue) > 0:
         bhash = hashlib.sha256((mining_queue[0]["send"] + mining_queue[0]["receive"] + str(mining_queue[0]["amount"]) + str(mining_queue[0]["time"]) + mining_queue[0]["verify"]).encode("UTF-8")).hexdigest()
         diff = len(blockchain) // 1000 + 6
-        with open("/home/csccrypto/mysite/text_stuff/dist_for_mine.txt", "a") as f:
+        with open("dist_for_mine.txt", "a") as f:
             f.write(str(diff) + " " + bhash + " " +  str(mining_queue[0]) + " \n")
         return render_template("mining.html", bh=bhash, dif=diff)
     else:
@@ -300,3 +300,5 @@ def mine_result():
         return render_template("no_mine.html")
 
 
+if __name__ == "__main__":
+    app.run(debug=True)
