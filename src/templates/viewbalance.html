@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>View Balance</title>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='everything_else.css') }}"/>
+    </head>
+    <body>
+        <h1>Your balance is:<br>{{ balan }}</h1>
+        <a href="{{ url_for('index') }}"><button type="button">Back to homepage</button></a>
+    </body>
+</html>

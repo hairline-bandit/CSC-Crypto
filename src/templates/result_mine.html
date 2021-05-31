@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Mining Result</title>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='everything_else.css') }}"/>
+    </head>
+    <body>
+        {% if amount == 10 %}
+            <h1>Congrats! You were the first to mine that block!</h1>
+            <h3>You have been awarded 10 CSC</h3>
+        {% endif %}
+        {% if amount == 0.25 %}
+            <h1>Bummer; You were not the first to mine that block :(</h1>
+            <h3>You have still been awarded 0.25 CSC</h3>
+        {% endif %}
+        <a href="{{ url_for('index') }}"><button type="button">Back to homepage</button></a>
+    </body>
+</html>
