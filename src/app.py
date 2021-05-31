@@ -195,7 +195,7 @@ def sendtransac():
         receive = request.values["receive"]
         amount = request.values["amount"]
 
-        if hashlib.sha256((str(tim) + passw).encode("UTF-8")).hexdigest() == verify and user in usersn and receive in usersn and get_pass(user) != None and float(amount) <= get_balance(user):
+        if hashlib.sha256((str(tim) + passw).encode("UTF-8")).hexdigest() == verify and user in usersn and receive in usersn and get_pass(user) != None and float(amount) <= get_balance(user) and float(amount) >= 0:
             mining_queue.append({"send": user, "receive": receive, "amount": amount, "time": tim, "verify": verify, "last_key": None, "key": None})
             print(mining_queue)
             asd2 = True
