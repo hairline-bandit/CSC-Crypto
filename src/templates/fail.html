@@ -2,9 +2,12 @@
 <html lang="en">
     <meta charset="UTF-8">
     <title>Failure</title>
-    <body>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='everything_else.css') }}"/>
         <h1>Something Went Wrong...</h1>
-        <h3>Someone already has that username or you input an invalid username<br>(empty, has a space, or has a quotation mark)</h3>
+    </head>
+    <body>
+        <h3>Someone already has that username or you input an invalid username (empty, has a space, or has a quotation mark)</h3>
         <a href="{{ url_for('index') }}"><button type="button">Back to homepage</button></a>
     </body>
 </html>
