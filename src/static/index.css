@@ -1,0 +1,27 @@
+h1 {
+    color: white;
+    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+head {
+    background-color: #000000 !important;
+    text-align: center;
+    color: #ffffff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body {
+    background-color: #000000;
+    text-align: center;
+    color: #000000;
+}
+button {
+    background-color: #333333;
+    text-align: center;
+    color: white;
+    border: thick;
+    border-color: white;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 300px;
+    height: 20px;
+}
