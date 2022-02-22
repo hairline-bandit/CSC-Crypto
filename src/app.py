@@ -7,7 +7,7 @@ def num(num):
 
 import six_fo
 import hashlib
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort, current_app
 import ast
 app = Flask(__name__)
 
@@ -16,14 +16,21 @@ mining_queue = []
 users = []
 usersn = []
 
+ban_list = ['157.230.159.181']
 
+@app.before_request
+def block_method():
+    global ban_list
+    ip = request.environ.get('REMOTE_ADDR')
+    if ip in ban_list:
+        abort(403)
 
 def make_file():
     global blockchain
     global mining_queue
     global users
     global usersn
-    with open("/home/csccrypto/mysite/text_stuff/blockchain.txt", "w") as f:
+    with open("/home/csccrypto/mysite/text_stuff/blockchain.txt", "a") as f:
         for i in blockchain:
             if i != {"send": "SYSTEM", "receive": "SYSTEM", "amount": 0, "time": 1587374420, "verify": "0" * 64, "last_key": 0, "key": 0}:
                 for j in i.values():
@@ -39,17 +46,6 @@ def make_file():
     mining_queue = []
     blockchain = []
     help = {0: "send", 1: "receive", 2: "amount", 3: "time", 4: "verify", 5: "last_key", 6: "key"}
-    with open("/home/csccrypto/mysite/text_stuff/blockchain.txt", "r") as f:
-        content = [i[:-2] for i in f.readlines()]
-        for i in content:
-            out = {}
-            curr = i.split(" ")
-            for j in range(len(curr)):
-                if j == 0 or j == 1 or j == 4:
-                    out[help[j]] = curr[j]
-                else:
-                    out[help[j]] = num(curr[j])
-            blockchain.append(out)
 
     with open("/home/csccrypto/mysite/text_stuff/mining_queue.txt", "r") as f:
         content = [i[:-2] for i in f.readlines()]
@@ -302,5 +298,3 @@ def mine_result():
         return render_template("no_mine.html")
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
